@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Consultations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="container">
+<h1 class="mt-4">Liste des consultations</h1>
+<a href="/consultations/new" class="btn btn-primary mb-3">Créer une nouvelle consultation</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Patient</th>
+        <th>Médecin</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="consultation : ${consultations}">
+        <td th:text="${consultation.patient.nom}">Nom du patient</td>
+        <td th:text="${consultation.doctor.nom}">Nom du médecin</td>
+        <td th:text="${consultation.dateConsultation}">Date de la consultation</td>
+        <td>
+            <a th:href="@{'/consultations/edit/' + ${consultation.id}}" class="btn btn-primary">Modifier</a>
+            <a th:href="@{'/consultations/delete/' + ${consultation.id}}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette consultation?');">Supprimer</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

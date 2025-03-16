@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Modifier Consultation</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="container">
+<h1 class="mt-4">Modifier Consultation</h1>
+<form th:action="@{/consultations/update}" th:object="${consultation}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  <div class="form-group">
+    <label for="patient">Patient:</label>
+    <select id="patient" th:field="*{patient}" class="form-control">
+      <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.nom}" th:selected="${patient.id == consultation.patient.id}">Nom du patient</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="doctor">Médecin:</label>
+    <select id="doctor" th:field="*{doctor}" class="form-control">
+      <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.nom}" th:selected="${doctor.id == consultation.doctor.id}">Nom du médecin</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="consultationDate">Date de la consultation:</label>
+    <input type="datetime-local" id="consultationDate" th:field="*{dateConsultation}" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="status">Statut:</label>
+    <select id="status" th:field="*{status}" class="form-control">
+      <option value="Prévue" th:selected="${consultation.status == 'Prévue'}">Prévue</option>
+      <option value="Terminée" th:selected="${consultation.status == 'Terminée'}">Terminée</option>
+      <option value="Annulée" th:selected="${consultation.status == 'Annulée'}">Annulée</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Enregistrer</button>
+</form>
+</body>
+</html>
